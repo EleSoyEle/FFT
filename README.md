@@ -30,6 +30,6 @@ Y ya nada mas queda correr el archivo.
 
 
 ## **Posibles errores**
-Dado que se usa openCL deben tenerse instalado para poder ejecutar el programa satisfactoriamente.
+Dado que se usa openCL debe tenerse instalada la libreria de OpenCL en C para poder ejecutar el programa satisfactoriamente.
 
 En algunos dispositivos pueden haber problemas para escribir el archivo de salida, depende del OS en que se esté ejecutando.
