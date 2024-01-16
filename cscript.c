@@ -228,7 +228,7 @@ int main(){
     const char* KernelSource = readTextFile("kernel.cl");
     //Obtenemos el id del dispositivo
     const cl_uint num = 1;
-    cl_device_type devt = CL_DEVICE_TYPE_CPU;
+    cl_device_type devt = CL_DEVICE_TYPE_GPU;
     clGetDeviceIDs(NULL,devt,0,NULL,(cl_uint*)&num);
     cl_device_id devices[1];
     clGetDeviceIDs(NULL,devt,num,devices,NULL);
