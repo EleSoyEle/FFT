@@ -1,5 +1,3 @@
-R"(
-
 __kernel void DFT(
         __global float* rsignal,
         __global float* isignal,
@@ -29,4 +27,4 @@ __kernel void DFT(
         }
     }   
 }
-)"
+

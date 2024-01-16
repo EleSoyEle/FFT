@@ -205,18 +205,30 @@ float complex* IFFT(cl_program program, cl_command_queue queue, cl_context conte
 	}
 	return recsignal;
 }
-
+//Archivo para leer el kernel
+char* readTextFile(char filename[]){
+    FILE* file = fopen(filename,"r");
+    if(file == NULL){
+        perror("Error al abrir el archivo");
+    }
+    fseek(file,0,SEEK_END);
+    long file_size = ftell(file);
+    fseek(file,0,SEEK_SET);
+    char* KernelS = (char*)malloc((file_size+1)*sizeof(char));
+    fread(KernelS,1,file_size,file);
+    fclose(file);
+    KernelS[file_size]='\0';
+    return KernelS;
+}
 
 
 cl_int qerror = CL_SUCCESS;
 cl_int cerror = CL_SUCCESS;
 int main(){
-    const char* KernelSource = 
-        #include "kernel.cl"
-        ;
+    const char* KernelSource = readTextFile("kernel.cl");
     //Obtenemos el id del dispositivo
     const cl_uint num = 1;
-    cl_device_type devt = CL_DEVICE_TYPE_GPU;
+    cl_device_type devt = CL_DEVICE_TYPE_CPU;
     clGetDeviceIDs(NULL,devt,0,NULL,(cl_uint*)&num);
     cl_device_id devices[1];
     clGetDeviceIDs(NULL,devt,num,devices,NULL);
@@ -274,7 +286,7 @@ int main(){
 	}
 	show_complex_array(fts,size);
 	printf("Tiempo de calculo:\n");
-    printf("%f \n",(float)(t1-t0)/CLOCKS_PER_SEC);
+    printf("%f  segundos \n",(float)(t1-t0)/CLOCKS_PER_SEC);
 	char opt[1];
 	printf("¿Deseas guardar los datos transformados?[y/n]: ");
 	scanf("%s",opt);
