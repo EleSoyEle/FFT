@@ -169,9 +169,11 @@ void write_data(char filename[],float complex* array,int size){
 	datafile[0]='\0';
 	for(int i=0;i<size;i++){
 		char rsnumber[max];
-		gcvt(creal(array[i]),5,rsnumber);
+        sprintf(rsnumber,"%.5f",creal(array[i]));
+		//gcvt(creal(array[i]),5,rsnumber);
 		char isnumber[max];
-		gcvt(cimag(array[i]),5,isnumber);
+		sprintf(isnumber,"%.5f",cimag(array[i]));
+        //gcvt(cimag(array[i]),5,isnumber);
 		
 		strcat(datafile,rsnumber);
 		char carac = '-';
@@ -228,7 +230,7 @@ int main(){
     const char* KernelSource = readTextFile("kernel.cl");
     //Obtenemos el id del dispositivo
     const cl_uint num = 1;
-    cl_device_type devt = CL_DEVICE_TYPE_GPU;
+    cl_device_type devt = CL_DEVICE_TYPE_CPU;
     clGetDeviceIDs(NULL,devt,0,NULL,(cl_uint*)&num);
     cl_device_id devices[1];
     clGetDeviceIDs(NULL,devt,num,devices,NULL);
